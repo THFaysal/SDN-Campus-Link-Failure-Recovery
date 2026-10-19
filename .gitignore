@@ -1,0 +1,32 @@
+# OS / editor metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+
+# Secrets and private local configurations
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+private/
+
+# Local runtime and generated artifacts
+__pycache__/
+*.pyc
+*.swp
+*.tmp
+*.bak
+*.log
+*.pcap
+*.pcapng
+*.gns3project
+captures/
+output/
+results/raw/
+
+# Do not ignore GNS3 .gns3 topology files or documentation assets.
+# Review any added node configurations before publishing for credentials.

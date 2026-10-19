@@ -1,0 +1,111 @@
+vlans:
+  users:
+    vid: 100
+
+dps:
+
+  OVS1:
+    dp_id: 0x0000e2a24fcdff4a
+    hardware: "Open vSwitch"
+
+    stack:
+      priority: 1
+
+    interfaces:
+
+      2:
+        name: "H1-Video"
+        description: "H1 Video Client"
+        native_vlan: users
+
+      3:
+        name: "H2-Business"
+        description: "H2 Business Client"
+        native_vlan: users
+
+      4:
+        name: "H3-File"
+        description: "H3 File Transfer Client"
+        native_vlan: users
+
+      5:
+        name: "OVS1-to-OVS2"
+        description: "Primary path to OVS2"
+        stack:
+          dp: OVS2
+          port: 2
+
+      6:
+        name: "OVS1-to-OVS4"
+        description: "Alternative path to OVS4"
+        stack:
+          dp: OVS4
+          port: 2
+
+
+  OVS2:
+    dp_id: 0x0000daa0cf021f4a
+    hardware: "Open vSwitch"
+
+    interfaces:
+
+      2:
+        name: "OVS2-to-OVS1"
+        description: "Stack link to OVS1"
+        stack:
+          dp: OVS1
+          port: 5
+
+      3:
+        name: "OVS2-to-OVS3"
+        description: "Stack link to OVS3"
+        stack:
+          dp: OVS3
+          port: 2
+
+
+  OVS3:
+    dp_id: 0x00007efabca1aa49
+    hardware: "Open vSwitch"
+
+    interfaces:
+
+      2:
+        name: "OVS3-to-OVS2"
+        description: "Stack link to OVS2"
+        stack:
+          dp: OVS2
+          port: 3
+
+      3:
+        name: "OVS3-to-OVS4"
+        description: "Stack link to OVS4"
+        stack:
+          dp: OVS4
+          port: 3
+
+      4:
+        name: "Server"
+        description: "Application Server"
+        native_vlan: users
+
+
+  OVS4:
+    dp_id: 0x000066bf9a92ef47
+    hardware: "Open vSwitch"
+
+    interfaces:
+
+      2:
+        name: "OVS4-to-OVS1"
+        description: "Stack link to OVS1"
+        stack:
+          dp: OVS1
+          port: 6
+
+      3:
+        name: "OVS4-to-OVS3"
+        description: "Stack link to OVS3"
+        stack:
+          dp: OVS3
+          port: 3
